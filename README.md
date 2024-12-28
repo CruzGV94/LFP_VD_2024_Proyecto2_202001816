@@ -56,13 +56,38 @@ Requisitos Mínimos:
 * Memoria RAM: 1 GB
 * Resolución de pantalla: 1280 x 720 pixeles
 ### ESPRESIONES REGULARES 
-Operaciones: (\s*=\s*\[.*?\])|
-Configuraciones: ((Lex|Parser)\s*=\s*\[.*?\])|(?://[^\n]*|/\*.*?\*/)|
-imprimir: (\(".*?"\))|
-conteo: (\(\))|
-promedio: (\(".*?"\))|
-max: (\(".*?"\))|
-main: (\(".*?"\))|
-generarReporte: (\(".*?"(?:,\s*".*?")?\))
+* Operaciones: (\s*=\s*\[.*?\])|
+* Configuraciones: ((Lex|Parser)\s*=\s*\[.*?\])|(?://[^\n]*|/\*.*?\*/)|
+* imprimir: (\(".*?"\))|
+* conteo: (\(\))|
+* promedio: (\(".*?"\))|
+* max: (\(".*?"\))|
+* main: (\(".*?"\))|
+* generarReporte: (\(".*?"(?:,\s*".*?")?\))
 ## AFD
 ![AUTOM](/CAPTURAS/AFD.png)
+## METODO DEL ARBOL 
+![ARBOL](/CAPTURAS/Arbol.png)
+## GRAMATICA LIBRE DE CONTEXTO 
+<configuracion> ::= "Configuraciones" <tipo_configuracion> "=" "[" <lista_propiedades> "]"
+
+<tipo_configuracion> ::= "Lex" | "Parser"
+
+<lista_propiedades> ::= <propiedad> | <propiedad> "," <lista_propiedades> | ε
+
+<propiedad> ::= <fondo> | <fuente> | <forma> | <tipo_fuente>
+
+<fondo> ::= "fondo" ":" <color>
+<fuente> ::= "fuente" ":" <color>
+<forma> ::= "forma" ":" <forma_valor>
+<tipo_fuente> ::= "tipoFuente" ":" <texto>
+
+<color> ::= "#" <hexadecimal> | <texto>
+<hexadecimal> ::= <hex_char> <hex_char> <hex_char> | <hex_char> <hex_char> <hex_char> <hex_char> <hex_char> <hex_char>
+<hex_char> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "a" | "b" | "c" | "d" | "e" | "f" | "A" | "B" | "C" | "D" | "E" | "F"
+
+<forma_valor> ::= "circle" | "box" | "triangle" | <texto>
+
+<texto> ::= <letra> | <letra> <texto>
+<letra> ::= "a" | "b" | ... | "z" | "A" | "B" | ... | "Z"
+
